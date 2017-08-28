@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(crashtest)
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 if(MSVC)
   add_definitions(-D_SCL_SECURE_NO_WARNINGS)
