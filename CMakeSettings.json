@@ -12,10 +12,20 @@
         {
           "name": "CMAKE_TOOLCHAIN_FILE",
           "value": "${env.WORKSPACE}\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
-        },
+        }
+      ]
+    },
+    {
+      "buildCommandArgs": "-m -v:minimal",
+      "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
+      "cmakeCommandArgs": "",
+      "configurationType": "Debug",
+      "generator": "Visual Studio 15 2017 Win64",
+      "name": "x64-Debug",
+      "variables": [
         {
-          "name": "BOOST_LIBRARYDIR",
-          "value": "${env.WORKSPACE}\\vcpkg\\installed\\x86-windows\\lib"
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "${env.WORKSPACE}\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
         }
       ]
     },
@@ -30,10 +40,20 @@
         {
           "name": "CMAKE_TOOLCHAIN_FILE",
           "value": "${env.WORKSPACE}\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
-        },
+        }
+      ]
+    },
+    {
+      "buildCommandArgs": "-m -v:minimal",
+      "buildRoot": "${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}",
+      "cmakeCommandArgs": "",
+      "configurationType": "Release",
+      "generator": "Visual Studio 15 2017 Win64",
+      "name": "x64-Release",
+      "variables": [
         {
-          "name": "BOOST_LIBRARYDIR",
-          "value": "${env.WORKSPACE}\\vcpkg\\installed\\x86-windows\\lib"
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "${env.WORKSPACE}\\vcpkg\\scripts\\buildsystems\\vcpkg.cmake"
         }
       ]
     }

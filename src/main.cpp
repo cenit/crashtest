@@ -1,27 +1,21 @@
 #define MAJOR_VERSION 0
-#define MINOR_VERSION 1
+#define MINOR_VERSION 2
 
 
 #include <iostream>
-
-//#include "opencv2/cv.h"
-//#include "opencv2/core/core.hpp"
-//#include "opencv2/highgui/highgui.hpp"
-//#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/core.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgproc.hpp"
-#include "iostream"
-
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 #include <boost/filesystem.hpp>
 
 #include "error_codes.h"
 
-using namespace cv;
-using namespace std;
 
 int main(int argc, char* argv[])
 {
+  using namespace cv;
+  using namespace std;
+
   cout << "crashtest " << MAJOR_VERSION << '.' << MINOR_VERSION << " using OpenCV " << CV_MAJOR_VERSION  << '.' << CV_MINOR_VERSION << endl;
 
   VideoCapture cap;
@@ -59,17 +53,12 @@ int main(int argc, char* argv[])
   resizeWindow("Video", 640, 360);
   resizeWindow("test", 640, 360);
   resizeWindow("Grid", 640, 360);
+  Mat frame;
+  cap >> frame;
 
-  while (true)
+  while (!frame.empty())
   {
-    Mat frame;
     Mat grid;
-    bool bSuccess = cap.read(frame);
-    if (!bSuccess)
-    {
-      cout << "Video is over, exiting..." << endl;
-      break;
-    }
     framecounter++;
     imshow("Video", frame);
     cvtColor( frame, frame, COLOR_BGR2GRAY );
@@ -90,6 +79,10 @@ int main(int argc, char* argv[])
       cout << "ESC key is pressed by user, exiting..." << endl;
       break;
     }
+
+    cap >> frame;
+    if (frame.empty()) break;
+
   }
 
   return 0;
