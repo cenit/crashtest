@@ -49,10 +49,10 @@ int main(int argc, char* argv[])
   cout << "Frame per seconds : " << fps << endl;
   namedWindow("Video", WINDOW_NORMAL);
   namedWindow("test", WINDOW_NORMAL);
-  namedWindow("Grid", WINDOW_NORMAL);
+  //namedWindow("Grid", WINDOW_NORMAL);
   resizeWindow("Video", 640, 360);
   resizeWindow("test", 640, 360);
-  resizeWindow("Grid", 640, 360);
+  //resizeWindow("Grid", 640, 360);
   Mat frame;
   cap >> frame;
 
@@ -66,13 +66,19 @@ int main(int argc, char* argv[])
     erode(grid, grid, Mat(), Point(-1, -1), 1, 1, 1);
     dilate(grid, grid, Mat(), Point(-1, -1), 12, 1, 1);
     erode(grid, grid, Mat(), Point(-1, -1), 11, 1, 1);
+    //now grid contains a mask
     bitwise_and(frame, frame, grid, grid);
-    erode(grid, grid, Mat(), Point(-1, -1), 15, 1, 1);
-    dilate(grid, grid, Mat(), Point(-1, -1), 15, 1, 1);
-    imshow("test", grid);
     threshold(grid, grid, 180.0, 255.0, THRESH_BINARY);
+    erode(grid, grid, Mat(), Point(-1, -1), 2, 0.5, 0.5);
+    dilate(grid, grid, Mat(), Point(-1, -1), 1, 0.03, 0.03);
+    dilate(grid, grid, Mat(), Point(-1, -1), 2, 0.05, 0.05);
+    erode(grid, grid, Mat(), Point(-1, -1), 3, 0.1, 0.1);
+    dilate(grid, grid, Mat(), Point(-1, -1), 1, 0.03, 0.03);
+    imshow("test", grid);
+    //bitwise_and(frame, frame, grid, grid);
+    //threshold(grid, grid, 220.0, 255.0, THRESH_BINARY);
+    //imshow("Grid", grid);
     printf("Frame #%06d - mask r: %d, c:%d     \t\r", framecounter, grid.rows, grid.cols);
-    imshow("Grid", grid);
 
     if (waitKey(30) == 27)  //wait for 'esc' key press for 30 ms.
     {
