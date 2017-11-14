@@ -19,6 +19,7 @@ addons:
   apt:
     packages:
     - libopencv-dev
+    - libboost-all-dev
 
 matrix:
     exclude:
