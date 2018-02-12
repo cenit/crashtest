@@ -48,7 +48,10 @@ install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make -j2                                                                                  ;fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then make install                                                                              ;fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then cd ../..                                                                                  ;fi
-
+  - git clone https://github.com/physycom/sysconfig.git
+  - export WORKSPACE=$(pwd)
+  - mkdir build && cd build
 
 script:
-  - mkdir build && cd build && cmake .. && cmake --build .
+  - cmake ..
+  - cmake --build .
