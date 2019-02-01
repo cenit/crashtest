@@ -12,7 +12,7 @@ endif()
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
-find_package(OpenCV 3 REQUIRED HINTS /usr/local/opt/opencv3)
+find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 add_executable(crashtest
