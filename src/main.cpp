@@ -6,6 +6,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/videoio.hpp>
 #include <boost/filesystem.hpp>
 
 #include "error_codes.h"
@@ -19,7 +20,7 @@ int main(int argc, char* argv[])
   cout << "crashtest " << MAJOR_VERSION << '.' << MINOR_VERSION << " using OpenCV " << CV_MAJOR_VERSION  << '.' << CV_MINOR_VERSION << endl;
 
   VideoCapture cap;
-  int framecounter = 0; 
+  int framecounter = 0;
 
 #if defined _WIN32
   std::string filename = "C:\\Users\\sinigard\\Codice\\crashtest\\video\\PrimoCrash.mts";
@@ -46,8 +47,8 @@ int main(int argc, char* argv[])
     cin.get();
     exit(ERROR_VIDEO_NOT_FOUND);
   }
-  cap.set(CV_CAP_PROP_POS_MSEC, 44000);  //start the video at 20000ms (20s)
-  double fps = cap.get(CV_CAP_PROP_FPS); //get the frames per seconds of the video
+  cap.set(CAP_PROP_POS_MSEC, 44000); //start the video at 20000ms (20s)
+  double fps = cap.get(CAP_PROP_FPS); //get the frames per seconds of the video
   cout << "Frame per seconds : " << fps << endl;
   namedWindow("Video", WINDOW_NORMAL);
   namedWindow("test", WINDOW_NORMAL);
@@ -95,5 +96,3 @@ int main(int argc, char* argv[])
 
   return 0;
 }
-
-
