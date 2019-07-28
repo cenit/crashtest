@@ -57,7 +57,7 @@ install:
   - cd vcpkg
   - git pull
   - ./bootstrap-vcpkg.sh
-  - travis_wait ./vcpkg install opencv[ffmpeg]
+  - travis_wait 45 ./vcpkg install opencv[ffmpeg]
   - popd
 
 before_script:
