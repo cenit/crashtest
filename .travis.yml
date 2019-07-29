@@ -57,7 +57,7 @@ install:
   - cd vcpkg
   - git pull
   - ./bootstrap-vcpkg.sh
-  - travis_wait 45 ./vcpkg install opencv[ffmpeg]
+  - travis_wait 45 ./vcpkg install opencv[ffmpeg] boost
   - popd
 
 before_script:
@@ -72,5 +72,5 @@ before_script:
   - cd ..
 
 script:
-  - cd build_debug   && cmake --build . --target install -- -j8 && cd ..
-  - cd build_release && cmake --build . --target install -- -j8 && cd ..
+  - cd build_debug   && cmake --build . -- -j8 && cd ..
+  - cd build_release && cmake --build . -- -j8 && cd ..
