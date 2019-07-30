@@ -57,7 +57,7 @@ install:
   - cd vcpkg
   - git pull
   - ./bootstrap-vcpkg.sh
-  - travis_wait 45 ./vcpkg install opencv[ffmpeg] boost
+  - travis_wait 45 ./vcpkg install opencv[ffmpeg] boost-system boost-filesystem
   - popd
 
 before_script:
@@ -66,11 +66,11 @@ before_script:
   - cd build_debug
   - cmake .. -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ${additional_defines}
   - cd ..
-  - mkdir build_release
-  - cd build_release
-  - cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ${additional_defines}
-  - cd ..
+  #- mkdir build_release
+  #- cd build_release
+  #- cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ${additional_defines}
+  #- cd ..
 
 script:
   - cd build_debug   && cmake --build . -- -j8 && cd ..
-  - cd build_release && cmake --build . -- -j8 && cd ..
+  #- cd build_release && cmake --build . -- -j8 && cd ..
