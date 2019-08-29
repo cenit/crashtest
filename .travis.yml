@@ -12,32 +12,30 @@ matrix:
       osx_image: xcode10.1
       env:
         - additional_defines=""
-        - MATRIX_EVAL="brew install gcc && unset CC && unset CXX"
+        - MATRIX_EVAL="brew install gcc yaml && unset CC && unset CXX"
 
     - os: linux
       compiler: gcc
-      name: ubuntu 14.04 - gcc@8.0
+      dist: bionic
+      name: ubuntu - vcpkg
       addons:
         apt:
           update: true
-          sources:
-            - ubuntu-toolchain-r-test
           packages:
-            - g++-8
+            - yaml
       env:
         - additional_defines=""
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 
     - os: linux
       compiler: gcc
-      name: ubuntu 14.04 - gcc@8.0 - CUDA 10
+      dist: bionic
+      name: ubuntu - CUDA 10 - vcpkg
       addons:
         apt:
           update: true
-          sources:
-            - ubuntu-toolchain-r-test
           packages:
-            - g++-8
+            - yaml
       env:
         - additional_defines=""
         - CUDACXX=/usr/local/cuda-10.0/bin/nvcc
@@ -57,20 +55,24 @@ install:
   - cd vcpkg
   - git pull
   - ./bootstrap-vcpkg.sh
-  - travis_wait 45 ./vcpkg install opencv[ffmpeg] boost-system boost-filesystem
+  - echo "set(VCPKG_BUILD_TYPE release)" >> triplets/x64-osx.cmake
+  - echo "set(VCPKG_BUILD_TYPE release)" >> triplets/x64-linux.cmake
+  - travis_wait 45 ./vcpkg install boost-system boost-filesystem --recurse
+  - travis_wait 45 ./vcpkg install ffmpeg --recurse
+  - travis_wait 45 ./vcpkg install opencv[ffmpeg,contrib] --recurse
   - popd
 
 before_script:
   - echo ${additional_defines}
-  - mkdir build_debug
-  - cd build_debug
-  - cmake .. -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ${additional_defines}
-  - cd ..
-  #- mkdir build_release
-  #- cd build_release
-  #- cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ${additional_defines}
+  #- mkdir build_debug
+  #- cd build_debug
+  #- cmake .. -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ${additional_defines}
   #- cd ..
+  - mkdir build_release
+  - cd build_release
+  - cmake .. -DCMAKE_BUILD_TYPE="Release" -DCMAKE_TOOLCHAIN_FILE=$HOME/vcpkg/scripts/buildsystems/vcpkg.cmake ${additional_defines}
+  - cd ..
 
 script:
-  - cd build_debug   && cmake --build . -- -j8 && cd ..
-  #- cd build_release && cmake --build . -- -j8 && cd ..
+  #- cd build_debug   && cmake --build . --target install -- -j8 && cd ..
+  - cd build_release && cmake --build . --target install -- -j8 && cd ..
