@@ -12,7 +12,7 @@ matrix:
       osx_image: xcode10.1
       env:
         - additional_defines=""
-        - MATRIX_EVAL="brew install gcc yaml && unset CC && unset CXX"
+        - MATRIX_EVAL="brew install gcc yasm && unset CC && unset CXX"
 
     - os: linux
       compiler: gcc
@@ -22,7 +22,7 @@ matrix:
         apt:
           update: true
           packages:
-            - yaml
+            - yasm
       env:
         - additional_defines=""
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
@@ -35,7 +35,7 @@ matrix:
         apt:
           update: true
           packages:
-            - yaml
+            - yasm
       env:
         - additional_defines=""
         - CUDACXX=/usr/local/cuda-10.0/bin/nvcc
