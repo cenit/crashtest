@@ -73,5 +73,5 @@ before_script:
   - cd ..
 
 script:
-  #- cd build_debug   && cmake --build . --target install -- -j8 && cd ..
-  - cd build_release && cmake --build . --target install -- -j8 && cd ..
+  #- cd build_debug   && cmake --build . -- -j8 && cd ..
+  - cd build_release && cmake --build . -- -j8 && cd ..
