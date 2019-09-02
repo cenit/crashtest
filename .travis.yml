@@ -59,6 +59,7 @@ install:
   - travis_wait 45 ./vcpkg install boost-system boost-filesystem --recurse
   - travis_wait 45 ./vcpkg install ffmpeg --recurse
   - travis_wait 45 ./vcpkg install opencv[ffmpeg,contrib] --recurse
+  - rm -rf buildtrees
   - popd
 
 before_script:
