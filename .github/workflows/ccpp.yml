@@ -22,7 +22,7 @@ jobs:
     steps:
     - name: Use HTTPS instead of SSH for Git cloning
       run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Get cached licencpp artifact
@@ -50,7 +50,7 @@ jobs:
   ubuntu-vcpkg:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
 
@@ -91,7 +91,7 @@ jobs:
   osx-vcpkg:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
 
@@ -131,7 +131,7 @@ jobs:
   win-vcpkg:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
 
