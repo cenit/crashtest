@@ -22,14 +22,7 @@ int main(int argc, char* argv[])
   VideoCapture cap;
   int framecounter = 0;
 
-#if defined _WIN32
-  std::string filename = "C:\\Users\\sinigard\\Codice\\crashtest\\video\\PrimoCrash.mts";
-  //OpenCV cannot use ffmpeg in libraries build by vcpkg, so this software still does not work in Windows...
-#elif defined __APPLE__
-  std::string filename = "/Users/sinigard/Codice/crashtest/video/PrimoCrash.mts";
-#else
-  std::string filename = "/mnt/c/Users/sinigard/Codice/crashtest/video/PrimoCrash.mts";
-#endif
+  std::string filename = "PrimoCrash.mts";
 
   cap.open(filename);
 

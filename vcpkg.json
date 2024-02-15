@@ -1,11 +1,17 @@
 {
   "name": "crashtest",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/cenit/crashtest",
+  "license": "MIT",
   "description": "",
   "dependencies":
   [
-    "opencv",
+    {
+      "name": "opencv",
+      "features": [
+        "ffmpeg"
+      ]
+    },
     "boost-filesystem",
     "boost-system"
   ],

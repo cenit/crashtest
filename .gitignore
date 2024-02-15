@@ -24,3 +24,9 @@ Thumbs.db
 # Build artifacts
 bin/
 build.log
+
+# License check artifacts
+AsciiDoc_disclosure_document.pdf
+analyzer-result.json
+dependencies.dgml
+project_spdx_document.spdx.yaml
