@@ -10,12 +10,43 @@ on:
         required: false
         default: false
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 8 * * 1'
 
 env:
   VCPKG_BINARY_SOURCES: 'clear;nuget,vcpkgbinarycache,readwrite'
 
 jobs:
+
+  ort:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Use HTTPS instead of SSH for Git cloning
+      run: git config --global url.https://github.com/.insteadOf ssh://git@github.com/
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    - name: Get cached licencpp artifact
+      uses: dawidd6/action-download-artifact@v3
+      with:
+        repo: cenit/licencpp
+        branch: master
+        workflow: ccpp.yml
+        workflow_conclusion: success
+        name: licencpp-${{ runner.os }}
+    - name: 'Setup vcpkg'
+      run: >
+        git clone https://github.com/microsoft/vcpkg ;
+        ./vcpkg/bootstrap-vcpkg.sh ;
+    - name: Create yml ort file from vcpkg.json
+      run: >
+        chmod 755 ./licencpp ;
+        ./licencpp --vcpkg_ports_dir=./vcpkg/ports --vcpkg_executable=./vcpkg/vcpkg ;
+        rm -rf vcpkg
+    - name: Run GitHub Action for ORT
+      uses: oss-review-toolkit/ort-ci-github-action@v1
+      with:
+        image: 'ghcr.io/oss-review-toolkit/ort:latest'
+
   ubuntu-vcpkg:
     runs-on: ubuntu-latest
     steps:
