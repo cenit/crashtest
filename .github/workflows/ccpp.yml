@@ -162,4 +162,4 @@ jobs:
 
     - name: 'Build'
       shell: pwsh
-      run: ${{ github.workspace }}/ci/build.ps1 -UseVCPKG -DoNotUpdateVCPKG -DisableInteractive -DoNotUpdateTOOL
+      run: ${{ github.workspace }}/ci/build.ps1 -UseVCPKG -DoNotUpdateVCPKG -DisableInteractive -DoNotUpdateTOOL -ForceLocalVCPKG
